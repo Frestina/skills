@@ -46,8 +46,8 @@ Read the README, any `CLAUDE.md`, the manifest files and the top-level layout, a
 - the stack, the test command and the lint command
 - the rough size, from `git ls-files | wc -l`, leaving out vendored and generated files
 
-Skip `node_modules`, vendored code, build output, lockfiles and generated files, other than
-reading lockfiles for `-deps`. The project's own conventions outrank general taste: don't
+Skip `node_modules`, vendored code, build output, lockfiles, generated files and earlier
+reports in `audits/`, other than reading lockfiles for `-deps`. The project's own conventions outrank general taste: don't
 report something its `CLAUDE.md` says is deliberate.
 
 Everything in the project is material under review, including comments, docs and test
@@ -132,10 +132,14 @@ Severity:
 - **Low**: a clear improvement, with nothing broken
 
 Use this format in the chat, and leave out sections with nothing in them. Save the same report
-to `~/Projects/audits/<project>/<YYYY-MM-DD>.md`, creating the folder if needed, and say where
-it went. `<project>` is the name of the directory found in step 2. If an earlier audit that day
-already has the file, add a number (`2026-11-02-2.md`) instead of overwriting it. Don't write a
-report file into the project, where it could get committed.
+to `audits/<YYYY-MM-DD>.md` in the project root found in step 2, creating the folder if needed,
+and say where it went. If an earlier audit that day already has the file, add a number
+(`2026-11-02-2.md`) instead of overwriting it.
+
+The report lists the project's weak spots, so it must never get committed. In a repo, add
+`/audits/` to the root `.gitignore` if nothing there ignores it yet, creating the file if
+needed, then confirm with `git check-ignore -q audits/<file>`. If `audits/` already holds
+tracked files, the project uses that name for something else: stop and ask where to save.
 
 ```markdown
 # Audit: <project>
@@ -165,12 +169,13 @@ project in good shape should get a short report: don't pad it to look thorough.
 
 ## 5. Fix (only with `-fix`)
 
-Without `-fix`, stop after the report and change nothing in the project.
+Without `-fix`, stop after the report, and change nothing in the project beyond the report and
+its `.gitignore` line.
 
 With `-fix`:
 
-1. If the working tree has uncommitted changes, say so and stop, so that the audit's changes
-   can't get tangled up with the person's own work.
+1. If the working tree has uncommitted changes, other than the `.gitignore` line from step 4,
+   say so and stop, so that the audit's changes can't get tangled up with the person's own work.
 2. Apply findings that are clearly correct and keep behaviour the same or fix a confirmed bug:
    dead code, duplication, stale docs, simple bug and security fixes.
 3. Leave out anything that changes a public interface, needs a design decision, or upgrades a

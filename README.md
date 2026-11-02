@@ -4,7 +4,7 @@ Skills for [Claude Code](https://claude.com/claude-code).
 
 | Skill | What it does |
 | --- | --- |
-| [`audit`](skills/audit/SKILL.md) | Audits a whole project, not just the current diff, for bugs, security, cleanup, tests, dependencies and docs. Run it with `/audit`; flags pick the areas and `-fix` applies the safe results. Reports are saved to `~/Projects/audits/<project>/<date>.md`. |
+| [`audit`](skills/audit/SKILL.md) | Audits a whole project, not just the current diff, for bugs, security, cleanup, tests, dependencies and docs. Run it with `/audit`; flags pick the areas and `-fix` applies the safe results. Reports are saved to `audits/<date>.md` in the audited project, which is added to its `.gitignore`. |
 | [`prior-art`](skills/prior-art/SKILL.md) | Checks whether an idea already exists before anyone builds it, including on your machine and in the open pull requests and release candidates of the platform it depends on. |
 
 ## Install
