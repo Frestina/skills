@@ -131,11 +131,16 @@ Severity:
 - **Medium**: worth fixing, with a limited impact or a narrow trigger
 - **Low**: a clear improvement, with nothing broken
 
-Use this format in the chat, and leave out sections with nothing in them. Don't write a report
-file into the project, where it could get committed.
+Use this format in the chat, and leave out sections with nothing in them. Save the same report
+to `~/Projects/audits/<project>/<YYYY-MM-DD>.md`, creating the folder if needed, and say where
+it went. `<project>` is the name of the directory found in step 2. If an earlier audit that day
+already has the file, add a number (`2026-11-02-2.md`) instead of overwriting it. Don't write a
+report file into the project, where it could get committed.
 
 ```markdown
 # Audit: <project>
+
+Date: <YYYY-MM-DD> | Commit: <short hash, or leave out outside a repo>
 
 <Two or three sentences: overall state, and the one thing to do first.>
 
@@ -160,7 +165,7 @@ project in good shape should get a short report: don't pad it to look thorough.
 
 ## 5. Fix (only with `-fix`)
 
-Without `-fix`, stop after the report and change nothing.
+Without `-fix`, stop after the report and change nothing in the project.
 
 With `-fix`:
 
@@ -171,4 +176,6 @@ With `-fix`:
 3. Leave out anything that changes a public interface, needs a design decision, or upgrades a
    major dependency version. List those under "Left for you", each with the reason.
 4. Run the tests and linters. Revert any fix that breaks something and report it.
-5. Report what changed. Leave the changes uncommitted so the diff can be reviewed.
+5. Report what changed, and add it to the saved report under "Fixed" and "Left for you", so
+   the file doesn't list as open what is already done. Leave the changes uncommitted so the
+   diff can be reviewed.
